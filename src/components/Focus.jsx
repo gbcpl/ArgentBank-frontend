@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 function Focus( { img, title, paragraph, alt }) {
   return (
     <div className="feature-item">
@@ -6,6 +8,13 @@ function Focus( { img, title, paragraph, alt }) {
       <p>{paragraph}</p>
   </div>
   )
+}
+
+Focus.propTypes = {
+  img: PropTypes.string,
+  title: PropTypes.string,
+  paragraph: PropTypes.string,
+  alt: PropTypes.string
 }
 
 export default Focus

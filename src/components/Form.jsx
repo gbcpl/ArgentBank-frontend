@@ -31,20 +31,22 @@ function Form() {
       }
 
       const data = await response.json();
-      console.log('Data:', data); 
-
-      const { token } = data.body;
+      console.log('Data:', data);
+      const { token, firstName } = data.body;
       console.log('Token:', token);
+      console.log('Firstname:', firstName);
+
+
       if (rememberMe) {
         localStorage.setItem('jwtToken', token);
       } else {
         sessionStorage.setItem('jwtToken', token);
       }
 
-      dispatch(loginSuccess(token));
-
+      dispatch(loginSuccess({ token }))
+      
       navigate('/profile');
-    
+      
     } catch (error) {
       console.error('Authentication failed:', error);
       setError('Username or password incorrect');

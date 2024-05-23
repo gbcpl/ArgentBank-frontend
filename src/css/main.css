@@ -28,6 +28,12 @@ body {
   background-color: #12002b;
 }
 
+.main-text {
+  text-align: center;
+  padding-top: 15vw;
+  color: white;
+}
+
 .sr-only {
   border: 0 !important;
   clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
@@ -58,13 +64,19 @@ body {
   color: #42b983;
 }
 
-.main-nav-item {
+.main-nav-item, .main-nav-item a {
   text-decoration: none;
   margin-right: 0.5rem;
 }
 
-.main-nav-item:hover {
+.main-nav-item:hover, .main-nav-item a:hover {
   text-decoration: underline;
+}
+
+.main-nav-item span {
+  padding-left: 0.3rem;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .main-nav-logo {

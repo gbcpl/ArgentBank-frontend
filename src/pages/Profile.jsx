@@ -1,18 +1,25 @@
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
 import Account from "../components/Account"
 import Welcome from "../components/Welcome"
 
 function Profile() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!isLoggedIn) {
-      navigate('/login'); // Redirige l'utilisateur vers la page de connexion si l'utilisateur n'est pas connecté
-    }
-  }, [isLoggedIn, navigate]);
+  if (!isLoggedIn) {
+    return (
+      <main className="main bg-dark">
+        <p className="main-text">Vous n&apos;avez pas accès à cette page. Veuillez vous identifier.</p>
+      </main>
+    )
+  }
+  // useEffect(() => {
+  //   if (!isLoggedIn) {
+  //     navigate('/login');
+  //   }
+  // }, [isLoggedIn, navigate]);
 
   return (
     <main className="main bg-dark">

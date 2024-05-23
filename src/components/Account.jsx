@@ -1,4 +1,6 @@
-function Account( {title, amount, balance}) {
+import PropTypes from 'prop-types';
+
+function Account( { title, amount, balance }) {
   return (
     <section className="account">
       <div className="account-content-wrapper">
@@ -12,5 +14,11 @@ function Account( {title, amount, balance}) {
     </section>
   )
 }
+
+Account.propTypes = {
+  title: PropTypes.string,
+  amount: PropTypes.string,
+  balance: PropTypes.string
+};
 
 export default Account
