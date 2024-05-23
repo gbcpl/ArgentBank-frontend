@@ -23,7 +23,7 @@ function Form() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email:username, password }),
       });
 
       if (!response.ok) {
@@ -39,8 +39,6 @@ function Form() {
 
       if (rememberMe) {
         localStorage.setItem('jwtToken', token);
-      } else {
-        sessionStorage.setItem('jwtToken', token);
       }
 
       dispatch(loginSuccess({ token }))

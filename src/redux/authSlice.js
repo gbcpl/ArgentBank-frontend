@@ -6,25 +6,25 @@ const authSlice = createSlice({
     token: null,
     isLoggedIn: false,
     firstName: '',
+    lastName: '',
+    id: '',
   },
   reducers: {
     loginSuccess: (state, action) => {
-      state.token = action.payload;
+      state.token = action.payload.token;
       state.isLoggedIn = true;
-      state.firstName = "Tony"
     },
     logoutSuccess: (state) => {
       state.token = null;
       state.isLoggedIn = false;
-      state.firstName = '';
     },
-    restoreSession(state, action) {
-      state.isLoggedIn = true;
-      state.token = action.payload.token;
-      state.firstName = "Tony"
+    userProfile(state, action) {
+      state.firstName = action.payload.firstName;
+      state.lastName = action.payload.lastName;
+      state.id = action.payload.id;
     }
   },
 });
 
-export const { loginSuccess, logoutSuccess, restoreSession } = authSlice.actions;
+export const { loginSuccess, logoutSuccess, userProfile } = authSlice.actions;
 export default authSlice.reducer;

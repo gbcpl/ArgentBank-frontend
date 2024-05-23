@@ -4,6 +4,7 @@ import Footer from '../components/Footer'
 import Home from '../pages/Home'
 import Login from '../pages/Login'
 import Profile from '../pages/Profile'
+import ProtectedRoute from './ProtectedRoute'
 
 function Router() {
   return (
@@ -12,7 +13,7 @@ function Router() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<Profile />}/>
+        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>}/>
       </Routes>
       <Footer />
   </BrowserRouter>

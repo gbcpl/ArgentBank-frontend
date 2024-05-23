@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { logoutSuccess, loginSuccess } from '../redux/authSlice';
-import { useEffect } from 'react';
+import { logoutSuccess } from '../redux/authSlice';
 import { Link } from "react-router-dom";
 
 function Header() {
@@ -9,36 +8,6 @@ function Header() {
   const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const firstName = useSelector((state) => state.auth.firstName); 
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      fetchUserProfile();
-    }
-  }, []);
-
-  const fetchUserProfile = async () => {
-    try {
-      const token = sessionStorage.getItem('jwtToken');
-      console.log(token)
-      const response = await fetch('http://localhost:3001/api/v1/user/profile', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) {
-        console.log(response)
-        throw new Error('Error 404');
-      }
-
-      const data = await response.json();
-      console.log(data)
-      dispatch(loginSuccess(data));
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-    }
-  };
 
   const handleLogout = async () => {
       sessionStorage.clear();

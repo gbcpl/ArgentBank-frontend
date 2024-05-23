@@ -1,25 +1,44 @@
-import { useSelector } from 'react-redux';
-// import { useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
 import Account from "../components/Account"
 import Welcome from "../components/Welcome"
+import { useEffect } from "react";
+import { userProfile } from "../redux/authSlice";
 
 function Profile() {
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  // const navigate = useNavigate();
 
-  if (!isLoggedIn) {
-    return (
-      <main className="main bg-dark">
-        <p className="main-text">Vous n&apos;avez pas accès à cette page. Veuillez vous identifier.</p>
-      </main>
-    )
-  }
-  // useEffect(() => {
-  //   if (!isLoggedIn) {
-  //     navigate('/login');
-  //   }
-  // }, [isLoggedIn, navigate]);
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const token = useSelector((state) => state.auth.token)
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchUserProfile();
+    }
+  }, []);
+
+  const fetchUserProfile = async () => {
+    try {
+      console.log(token)
+      const response = await fetch('http://localhost:3001/api/v1/user/profile', {
+        method: 'POST',
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+      });
+
+      if (!response.ok) {
+        console.log(response)
+        throw new Error('Error 404');
+      }
+
+      const data = await response.json();
+      console.log(data)
+      dispatch(userProfile({firstName: data.body.firstName, lastName: data.body.lastName, id: data.body.id}));
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
 
   return (
     <main className="main bg-dark">
