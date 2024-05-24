@@ -295,6 +295,30 @@ body {
   color: #fff;
 }
 
+.save-cancel-buttons, .edit-inputs {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.cancel-button, .save-button {
+  border-color: #00bc77;
+  background-color: #00bc77;
+  color: #fff;
+  font-weight: bold;
+  padding: 10px;
+  width: 120px;
+}
+
+.edit-names {
+  height: 40px;
+  border-radius: 5px;
+  margin-top: 5px;
+  padding-left: 10px;
+}
+
 @media (min-width: 720px) {
   .account {
     flex-direction: row;
