@@ -1,10 +1,17 @@
+import { useEffect } from "react";
 import Account from "../components/Account";
 import Welcome from "../components/Welcome";
 import useFetchUserProfile from "../hooks/useFetchUserProfile";
 
 function Profile() {
   const { isLoggedIn } = useFetchUserProfile();
-  console.log(isLoggedIn)
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      useFetchUserProfile; 
+    }
+  }, [isLoggedIn]);
+
   return (
     <main className="main bg-dark">
       <Welcome />

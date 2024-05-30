@@ -1,15 +1,40 @@
+import { useSelector } from 'react-redux';
 import useEditProfile from '../hooks/useEditProfile';
+import { useState } from 'react';
 
 function Welcome() {
-  const { isEditing, editedFirstName, editedLastName, handleEditClick, setEditedFirstName, setEditedLastName, handleSaveClick, handleCancelClick, first, last } = useEditProfile();
+  const first = useSelector((state) => state.auth.firstName); 
+  const last = useSelector((state) => state.auth.lastName);
+  const [editedFirstName, setEditedFirstName] = useState('');
+  const [editedLastName, setEditedLastName] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
+
+  const { postEditProfile } = useEditProfile();
+
+  const handleEditClick = (firstName, lastName) => {
+    firstName = first;
+    lastName = last;
+    setIsEditing(true);
+    setEditedFirstName(firstName);
+    setEditedLastName(lastName);
+  };
+
+  const handleSaveClick = async () => {
+    postEditProfile(editedFirstName, editedLastName)
+    setIsEditing(false);
+  };
+
+  const handleCancelClick = async () => {
+    setIsEditing(false);
+  };
 
   return (
     <div className="header">
       <h1>Welcome back<br />
         {isEditing ? (
           <div className="edit-inputs">
-            <input type="text" className="edit-names" placeholder={editedFirstName} onChange={(e) => setEditedFirstName(e.target.value)} />
-            <input type="text" className="edit-names" placeholder={editedLastName} onChange={(e) => setEditedLastName(e.target.value)} />
+            <input type="text" className="edit-names" value={editedFirstName} onChange={(e) => setEditedFirstName(e.target.value)} />
+            <input type="text" className="edit-names" value={editedLastName} onChange={(e) => setEditedLastName(e.target.value)} />
           </div>
         ) : (
           <>

@@ -1,23 +1,18 @@
 import { useState } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginSuccess } from '../redux/authSlice';
-import { useNavigate } from 'react-router-dom';
 import login from '../service/loginService';
 
-const useAuth = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const useForm = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState(null);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
-  const handleEmail = (e) => setEmail(e.target.value);
-  const handlePassword = (e) => setPassword(e.target.value);
   const handleRememberMe = (e) => setRememberMe(e.target.checked);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const postForm = async (email, password) => {
     try {
       const data = await login(email, password);
       const { token } = data.body;
@@ -26,9 +21,7 @@ const useAuth = () => {
         localStorage.setItem('jwtToken', token);
       }
 
-      dispatch(loginSuccess({ token }));
-
-      navigate('/profile');
+      dispatch(loginSuccess({ token, isLoggedIn }));
     } catch (error) {
       console.error('Authentication failed:', error);
       setError('Username or password incorrect');
@@ -36,15 +29,12 @@ const useAuth = () => {
   };
 
   return {
-    email,
-    setEmail: handleEmail,
-    password,
-    setPassword: handlePassword,
     rememberMe,
     setRememberMe: handleRememberMe,
     error,
-    handleSubmit,
+    postForm,
+    isLoggedIn
   };
 };
 
-export default useAuth;
+export default useForm;

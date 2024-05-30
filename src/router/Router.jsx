@@ -1,10 +1,10 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
-import Home from '../pages/Home'
-import Profile from '../pages/Profile'
-import Login from '../pages/Login'
-import ProtectedRoute from './ProtectedRoute'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import Home from '../pages/Home';
+import Profile from '../pages/Profile';
+import Login from '../pages/Login';
+import ProtectedRoute from './ProtectedRoute';
 
 function Router() {
   return (
